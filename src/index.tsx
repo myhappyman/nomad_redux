@@ -17,15 +17,29 @@ const minus = document.getElementById("minus") as HTMLElement;
 const number = document.getElementById("number") as HTMLElement;
 
 let initialCount = 0;
-const reducer = (state = initialCount) => {
-    console.log(state);
-    return state;
+interface IAction {
+    type: "INCREASE" | "DECREASE";
+}
+const reducer = (state = initialCount, action: IAction) => {
+    console.log(action);
+    if (action.type === "INCREASE") {
+        return state + 1;
+    } else if (action.type === "DECREASE") {
+        return state - 1;
+    } else {
+        return state;
+    }
 };
 const store = createStore(reducer);
-console.log(store.getState());
-// const updateText = () => {
-//     number.innerText = `${count}`;
-// };
+
+store.dispatch({ type: "INCREASE" });
+store.dispatch({ type: "INCREASE" });
+store.dispatch({ type: "DECREASE" });
+
+const updateText = () => {
+    number.innerText = `${store.getState()}`;
+};
+updateText();
 // const handleAdd = () => {
 //     count = count + 1;
 //     updateText();

@@ -20,8 +20,8 @@ ps. redux에서 createStore는 deprecate처리되어 있지만, 그냥 사용해
 
 ### 🔹reducer
 
-reducer는 state를 변경 시키는 메소드로 사용자가 작성하는 환경에 맞춰 state값들을 변경한다. 여기서 정수형의 값을 변경하거나 array, object등 원하는 데이터를 이곳에서만 변경하며, 변경하는 값은 action이라는 키워드를 통해 구분하여 처리한다.
-reducer의 연산이 끝나고 return하는 값이 현재의 어플리케이션 state값이 되며 store에 등록된다.
+`reducer`는 `state`를 변경 시키는 메소드로 사용자가 작성하는 환경에 맞춰 `state`값들을 변경한다. 여기서 정수형의 값을 변경하거나 array, object등 원하는 데이터를 이곳에서만 변경하며, 변경하는 값은 `action`이라는 키워드를 통해 구분하여 처리한다.
+`reducer`의 연산이 끝나고 return하는 값이 현재의 어플리케이션 `state`값이 되며 `store`에 등록된다.
 
 ### 🔹state
 
@@ -29,3 +29,17 @@ reducer의 연산이 끝나고 return하는 값이 현재의 어플리케이션 
 카운트 어플리케이션의 count와 같은 증가하거나 감소하는 정수값들을 의미한다.
 
 ### 🔹action
+
+`store`에 등록하는 `reducer`를 소통하기 위한 방법으로 `action`을 사용한다.
+`action`은 type이라는 key를 필수로 값는 Object형태의 데이터다.
+`action`은 그럼 `reducer`에 어떻게 보내질까? `dispatch`메소드를 활용한다.
+`dispatch`는 `store`에서 제공하는 메소드로 `reducer`를 동작시키게 만든다.
+
+```js
+store.dispatch({ type: "INCREASE" });
+```
+
+### 🔹dispatch
+
+store내장 메소드로 reducer를 동작시키면서 action의 값을 전달한다.
+(action은 type이라는 key를 꼭 가지도록 작성해야하고 object형태로 구성된다.)
