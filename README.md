@@ -1,46 +1,31 @@
-# Getting Started with Create React App
+# Nomad Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+redux개념을 좀 더 확실하게 잡기위해 추가 강의를 학습 중.
 
-## Available Scripts
+# Redux
 
-In the project directory, you can run:
+react에 대한 개념보단 redux에 대한 개념을 익히고 추후 어떤 언어에서든 redux를 사용할 수 있도록 학습한다.
 
-### `npm start`
+## 1.1 Store and Reducer
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 🔹store
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+`redux`에서 `createStore`메소드를 쓸 수 있는데, 이것은 무엇일까?
+먼저 `store`라는 개념을 알아야한다.
+`store`는 데이터를 넣는 공간으로 `state`를 넣는다고 보면 된다.
+`createStore`는 `reducer`를 매개변수로 요구한다.
+결과값은 `getState()`메소드를 통해 출력 할 수 있다.
 
-### `npm test`
+ps. redux에서 createStore는 deprecate처리되어 있지만, 그냥 사용해도 무관하며 legacy_createStore를 as createStore라고 명명하고 사용하면 취소선 없이 사용할 수 있다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔹reducer
 
-### `npm run build`
+reducer는 state를 변경 시키는 메소드로 사용자가 작성하는 환경에 맞춰 state값들을 변경한다. 여기서 정수형의 값을 변경하거나 array, object등 원하는 데이터를 이곳에서만 변경하며, 변경하는 값은 action이라는 키워드를 통해 구분하여 처리한다.
+reducer의 연산이 끝나고 return하는 값이 현재의 어플리케이션 state값이 되며 store에 등록된다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔹state
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+나의 어플리케이션에서 바뀌는 data들을 `state`라고 취급한다.
+카운트 어플리케이션의 count와 같은 증가하거나 감소하는 정수값들을 의미한다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🔹action
