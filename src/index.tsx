@@ -16,42 +16,68 @@ const form = document.querySelector("form") as HTMLElement;
 const input = document.querySelector("input") as HTMLInputElement;
 const ul = document.querySelector("ul") as HTMLElement;
 
-const INSERT_TODO = "INSERT_TODO";
-const REMOVE_TODO = "REMOVE_TODO";
-interface IAction {
-    type: typeof INSERT_TODO | typeof REMOVE_TODO;
-    todo: string;
-}
+const INSERT_TODO = "INSERT_TODO" as const;
+const REMOVE_TODO = "REMOVE_TODO" as const;
+const insertTodo = (todo: string) => ({
+    type: INSERT_TODO,
+    todo,
+    id: Date.now(),
+});
+const removeTodo = (id: number) => ({
+    type: REMOVE_TODO,
+    id,
+});
+
+type IAction = ReturnType<typeof insertTodo> | ReturnType<typeof removeTodo>;
 interface IState {
     todo: string;
-    date: number;
+    id: number;
 }
 const initialState: IState[] = [];
 const reducer = (state = initialState, action: IAction) => {
-    console.log(action);
     switch (action.type) {
         case INSERT_TODO:
-            return [...state, { todo: action.todo, date: Date.now() }];
+            return [...state, { todo: action.todo, id: action.id }];
         case REMOVE_TODO:
-            return state;
+            return state.filter((x) => x.id !== action.id);
         default:
             return state;
     }
 };
 const store = createStore(reducer);
 store.subscribe(() => console.log(store.getState()));
-const createTodo = (todo: string) => {
-    const li = document.createElement("li");
-    li.innerHTML = todo;
-    ul?.appendChild(li);
+
+const dispatchInsertToDo = (todo: string) => {
+    store.dispatch(insertTodo(todo));
 };
+const dispatchDeleteTodo = (e: MouseEvent) => {
+    // vanilla에서 처리 방법
+    const target = e.target as Element;
+    const parent = target.parentNode as Element;
+    const id = parent.id as string;
+    store.dispatch(removeTodo(+id));
+};
+
+const paintToDos = () => {
+    const todos = store.getState();
+    ul.innerHTML = "";
+    todos.forEach((x) => {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.innerText = "X";
+        btn.addEventListener("click", dispatchDeleteTodo);
+        li.id = x.id + "";
+        li.innerText = x.todo;
+        li.appendChild(btn);
+        ul.appendChild(li);
+    });
+};
+store.subscribe(paintToDos);
 
 const onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    const todo = input.value;
+    dispatchInsertToDo(input.value);
     input.value = "";
-    // createTodo(todo);
-    store.dispatch({ type: INSERT_TODO, todo: todo });
 };
 
 form.addEventListener("submit", onSubmit);
