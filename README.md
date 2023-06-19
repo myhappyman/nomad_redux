@@ -56,3 +56,10 @@ action의 type들을 상수로 설정하고 대문자로 작성한다.
 실수를 방지하기 위함이다.
 reducer의 action.type은 switch case문을 권장한다.
 (type의 종류가 많아지는 경우 가독성을 위하여 권장)
+
+## 2.0 Vanilla ToDos
+
+vanilla todos를 redux로 작성해본다.
+이전에 배운 action, action함수, reducer, store를 작성하고 연결하여 가볍게 todo insert동작까지 작성하였다.
+
+reducer의 return state 부분을 작성할땐 꼭 mutate처리가 되지 않도록 조심해야한다. ex) `arr.push`는 사용하면 안된다. `[...state, "add"]`

@@ -12,35 +12,41 @@
 
 import { legacy_createStore as createStore } from "redux";
 
-const add = document.getElementById("add") as HTMLElement;
-const minus = document.getElementById("minus") as HTMLElement;
-const number = document.getElementById("number") as HTMLElement;
+const form = document.querySelector("form") as HTMLElement;
+const input = document.querySelector("input") as HTMLInputElement;
+const ul = document.querySelector("ul") as HTMLElement;
 
-let initialCount = 0;
-const INCREASE = "INCREASE" as const;
-const DECREASE = "DECREASE" as const;
-interface IAction {
-    type: typeof INCREASE | typeof DECREASE;
+const INSERT_TODO = "INSERT_TODO";
+const REMOVE_TODO = "REMOVE_TODO";
+interface Iaction {
+    type: typeof INSERT_TODO | typeof REMOVE_TODO;
+    todo: string;
 }
-const reducer = (state = initialCount, action: IAction) => {
+const initialState: string[] = [];
+const reducer = (state = initialState, action: Iaction) => {
     switch (action.type) {
-        case INCREASE:
-            return state + 1;
-        case DECREASE:
-            return state - 1;
+        case INSERT_TODO:
+            return [...state, action.todo];
+        case REMOVE_TODO:
+            return state;
         default:
             return state;
     }
 };
 const store = createStore(reducer);
 
-const onChange = () => {
-    number.innerText = `${store.getState()}`;
+const createTodo = (todo: string) => {
+    const li = document.createElement("li");
+    li.innerHTML = todo;
+    ul?.appendChild(li);
 };
-store.subscribe(onChange);
 
-const handleAdd = () => store.dispatch({ type: "INCREASE" });
-const handleMinus = () => store.dispatch({ type: "DECREASE" });
+const onSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    const todo = input.value;
+    input.value = "";
+    // createTodo(todo);
+    store.dispatch({ type: INSERT_TODO, todo: todo });
+};
 
-add.addEventListener("click", handleAdd);
-minus.addEventListener("click", handleMinus);
+form.addEventListener("submit", onSubmit);
