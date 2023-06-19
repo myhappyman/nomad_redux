@@ -52,14 +52,22 @@ store에 등록된 state가 변화가 생기면 알려준다.
 
 ## 1.4 Recap
 
-action의 type들을 상수로 설정하고 대문자로 작성한다.
+`action`의 type들을 상수로 설정하고 대문자로 작성한다.
 실수를 방지하기 위함이다.
-reducer의 action.type은 switch case문을 권장한다.
+`reducer`의 action.type은 switch case문을 권장한다.
 (type의 종류가 많아지는 경우 가독성을 위하여 권장)
 
 ## 2.0 Vanilla ToDos
 
 vanilla todos를 redux로 작성해본다.
-이전에 배운 action, action함수, reducer, store를 작성하고 연결하여 가볍게 todo insert동작까지 작성하였다.
+이전에 배운 action, action함수, `reducer`, `store`를 작성하고 연결하여 가볍게 todo insert동작까지 작성하였다.
 
-reducer의 return state 부분을 작성할땐 꼭 mutate처리가 되지 않도록 조심해야한다. ex) `arr.push`는 사용하면 안된다. `[...state, "add"]`
+`reducer`의 return state 부분을 작성할땐 꼭 `mutate`처리가 되지 않도록 조심해야한다. ex) `arr.push`는 사용하면 안된다. `[...state, "add"]`
+
+## 2.1 State Mutation
+
+redux의 공식문서를 보면 `state`는 `read-only`이다.
+또한 `Single source of truth`이다.
+즉, `store.getState()+1`같은 행위는 하면 안된다. 오로지 `reducer`에서 `action` 구분값에 맞춰서 처리가 이루어지는 약속을 지켜야한다.
+
+`Single source of truth`: 여러 곳에서 같은 값이 사용될 때 한 곳에서 처리하고 수정하도록 작성하여 디버깅이나 유지보수성을 늘리는 행위를 말한다. 한글로 번역하면 `단일 진실 공급원`이라고 부른다.

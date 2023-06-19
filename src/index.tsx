@@ -18,15 +18,20 @@ const ul = document.querySelector("ul") as HTMLElement;
 
 const INSERT_TODO = "INSERT_TODO";
 const REMOVE_TODO = "REMOVE_TODO";
-interface Iaction {
+interface IAction {
     type: typeof INSERT_TODO | typeof REMOVE_TODO;
     todo: string;
 }
-const initialState: string[] = [];
-const reducer = (state = initialState, action: Iaction) => {
+interface IState {
+    todo: string;
+    date: number;
+}
+const initialState: IState[] = [];
+const reducer = (state = initialState, action: IAction) => {
+    console.log(action);
     switch (action.type) {
         case INSERT_TODO:
-            return [...state, action.todo];
+            return [...state, { todo: action.todo, date: Date.now() }];
         case REMOVE_TODO:
             return state;
         default:
@@ -34,7 +39,7 @@ const reducer = (state = initialState, action: Iaction) => {
     }
 };
 const store = createStore(reducer);
-
+store.subscribe(() => console.log(store.getState()));
 const createTodo = (todo: string) => {
     const li = document.createElement("li");
     li.innerHTML = todo;
