@@ -49,3 +49,10 @@ store내장 메소드로 reducer를 동작시키면서 action의 값을 전달�
 
 store에 등록된 state가 변화가 생기면 알려준다.
 내부에 등록한 콜백을 동작시켜준다.
+
+## 1.4 Recap
+
+action의 type들을 상수로 설정하고 대문자로 작성한다.
+실수를 방지하기 위함이다.
+reducer의 action.type은 switch case문을 권장한다.
+(type의 종류가 많아지는 경우 가독성을 위하여 권장)

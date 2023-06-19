@@ -23,12 +23,13 @@ interface IAction {
     type: typeof INCREASE | typeof DECREASE;
 }
 const reducer = (state = initialCount, action: IAction) => {
-    if (action.type === "INCREASE") {
-        return state + 1;
-    } else if (action.type === "DECREASE") {
-        return state - 1;
-    } else {
-        return state;
+    switch (action.type) {
+        case INCREASE:
+            return state + 1;
+        case DECREASE:
+            return state - 1;
+        default:
+            return state;
     }
 };
 const store = createStore(reducer);
