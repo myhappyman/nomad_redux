@@ -17,11 +17,12 @@ const minus = document.getElementById("minus") as HTMLElement;
 const number = document.getElementById("number") as HTMLElement;
 
 let initialCount = 0;
+const INCREASE = "INCREASE" as const;
+const DECREASE = "DECREASE" as const;
 interface IAction {
-    type: "INCREASE" | "DECREASE";
+    type: typeof INCREASE | typeof DECREASE;
 }
 const reducer = (state = initialCount, action: IAction) => {
-    console.log(action);
     if (action.type === "INCREASE") {
         return state + 1;
     } else if (action.type === "DECREASE") {
@@ -32,21 +33,13 @@ const reducer = (state = initialCount, action: IAction) => {
 };
 const store = createStore(reducer);
 
-store.dispatch({ type: "INCREASE" });
-store.dispatch({ type: "INCREASE" });
-store.dispatch({ type: "DECREASE" });
-
-const updateText = () => {
+const onChange = () => {
     number.innerText = `${store.getState()}`;
 };
-updateText();
-// const handleAdd = () => {
-//     count = count + 1;
-//     updateText();
-// };
-// const handleMinus = () => {
-//     di;
-//     updateText();
-// };
-// add?.addEventListener("click", handleAdd);
-// minus?.addEventListener("click", handleMinus);
+store.subscribe(onChange);
+
+const handleAdd = () => store.dispatch({ type: "INCREASE" });
+const handleMinus = () => store.dispatch({ type: "DECREASE" });
+
+add.addEventListener("click", handleAdd);
+minus.addEventListener("click", handleMinus);

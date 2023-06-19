@@ -1,6 +1,7 @@
 # Nomad Redux
 
 redux개념을 좀 더 확실하게 잡기위해 추가 강의를 학습 중.
+강의 제공은 js이지만 최대한 typescript를 바로 적용하여 활용하고 연습한다.
 
 # Redux
 
@@ -43,3 +44,8 @@ store.dispatch({ type: "INCREASE" });
 
 store내장 메소드로 reducer를 동작시키면서 action의 값을 전달한다.
 (action은 type이라는 key를 꼭 가지도록 작성해야하고 object형태로 구성된다.)
+
+### 🔹subscribe
+
+store에 등록된 state가 변화가 생기면 알려준다.
+내부에 등록한 콜백을 동작시켜준다.
