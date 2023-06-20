@@ -92,3 +92,7 @@ dispatch에서 사용될 action의 object의 사용값을 전달하는 함수
 dispatch에 직접 넣기보단 밖으로 함수를 작성하고 dispatch에서 사용한다.
 
 \*\*\* 타입스크립트로 작성하는게 너무 오래걸린다... ㅠㅠㅠ
+
+## 2.3 Delete To Do part Two
+
+splice와 같은 mutate를 일으키는 메소드가 아닌 새로운 배열을 작성해주는 filter를 통해 불변성을 지키고 return 시켜서 삭제 기능을 작성하였다.
