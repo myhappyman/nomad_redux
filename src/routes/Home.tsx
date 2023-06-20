@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { ActionType, IState, actionCreators } from "../store";
+import { ActionType, DispatchType, IState, actionCreators } from "../store";
+import Todos from "../components/Todos";
 
 function Home({ toDos, addTodo }: { toDos: IState[]; addTodo: AddTodoType }) {
     const [text, setText] = useState("");
@@ -24,7 +25,7 @@ function Home({ toDos, addTodo }: { toDos: IState[]; addTodo: AddTodoType }) {
             </form>
             <ul>
                 {toDos.map((x) => (
-                    <li key={x.id}>{x.text}</li>
+                    <Todos key={x.id} id={x.id} text={x.text} />
                 ))}
             </ul>
         </div>
@@ -44,7 +45,6 @@ function mapStateToProps(state: IState[]) {
     return { toDos: state };
 }
 
-type DispatchType = (action: ActionType) => typeof action;
 type AddTodoType = (text: string) => ActionType;
 /**
  * redux에 등록된 store의 dispatch메소드를 현재 컴포넌트의 props로 전달하는 함수이다.

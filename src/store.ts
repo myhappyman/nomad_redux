@@ -9,12 +9,13 @@ export interface IState {
     id: number;
     text: string;
 }
+export type DispatchType = (action: ActionType) => typeof action;
 export type ActionType =
     | ReturnType<typeof addTodo>
     | ReturnType<typeof deleteTodo>;
 
 const reducer = (
-    state = [{ id: 1, text: "초기값" }] as IState[],
+    state = [{ id: Date.now(), text: "초기값" }] as IState[],
     action: ActionType
 ) => {
     switch (action.type) {

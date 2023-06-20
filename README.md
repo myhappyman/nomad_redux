@@ -135,3 +135,8 @@ components props가 사라지고 element에 컴포넌트를 넣는다.
 해당 컴포넌트에서 사용할 dispatch에 알맞는 동작 함수를 작성하고, dispatch 전체를 전달하는게 아니라 필요한 행위의 함수만 전달해서 처리한다.
 
 -   2019년 이후로는 connect기법을 잘 사용하지 않는다고한다... `useSelector`, `useDispatch`로 대체됨
+
+## 3.4 Deleting To Do
+
+할 일을 표기하는 Todos컴포넌트를 작성하고 Home컴포넌트에 연결하였다.
+Todos컴포넌트에서 삭제를 누르게되면 dispatch를 사용하여 삭제를 처리하는데 삭제 구분을 위해 id값이 필요하다. 해당 컴포넌트에 props를 전달하기 위해 mapDispatchToProps를 쓰지만 ownProps를 통해 애초에 해당 컴포넌트에 전달되고 있는 props도 확인이 가능하다. 해당 props중 id값을 활용하여 별도의 처리 없이 dispatch함수에 필요한 id값을 전달하여 store에 등록된 state를 삭제하였다.
