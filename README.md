@@ -140,3 +140,11 @@ components props가 사라지고 element에 컴포넌트를 넣는다.
 
 할 일을 표기하는 Todos컴포넌트를 작성하고 Home컴포넌트에 연결하였다.
 Todos컴포넌트에서 삭제를 누르게되면 dispatch를 사용하여 삭제를 처리하는데 삭제 구분을 위해 id값이 필요하다. 해당 컴포넌트에 props를 전달하기 위해 mapDispatchToProps를 쓰지만 ownProps를 통해 애초에 해당 컴포넌트에 전달되고 있는 props도 확인이 가능하다. 해당 props중 id값을 활용하여 별도의 처리 없이 dispatch함수에 필요한 id값을 전달하여 store에 등록된 state를 삭제하였다.
+
+## 3.5 Detail Screen
+
+react router dom의 Link를 통해 각 Todo들에게 Link를 걸고 상세페이지를 나타낸다.
+
+---
+
+react-router-dom 6버전부터는 history, location, match를 받을수 없고 mapStateToProps에서 ownProps도 빈 객체로 나온다. useParams() 훅으로 처리하도록 한다.

@@ -1,14 +1,16 @@
 import { connect } from "react-redux";
 import { ActionType, DispatchType, actionCreators } from "../store";
+import { Link } from "react-router-dom";
 
 interface ITodo {
     text: string;
+    id: number;
     onBtnClick: () => ActionType;
 }
-function Todos({ text, onBtnClick }: ITodo) {
+function Todos({ text, id, onBtnClick }: ITodo) {
     return (
         <li>
-            {text}
+            <Link to={`/${id}`}>{text}</Link>
             <button onClick={onBtnClick}>삭제</button>
         </li>
     );
