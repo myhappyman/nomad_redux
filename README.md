@@ -148,3 +148,12 @@ react router dom의 Link를 통해 각 Todo들에게 Link를 걸고 상세페이
 ---
 
 react-router-dom 6버전부터는 history, location, match를 받을수 없고 mapStateToProps에서 ownProps도 빈 객체로 나온다. useParams() 훅으로 처리하도록 한다.
+
+## 3.6 Conclusions
+
+react-redux강의가 끝났다.
+
+### Challenge ✅❎
+
+❎ localstorage를 통해 작성된 todos 작업을 적용해보기
+❎ 요즘 사용하는 useSelector, useDispatch hook으로 교체해보기

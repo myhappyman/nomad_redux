@@ -1,4 +1,5 @@
 import { legacy_createStore as createStore } from "redux";
+import { getTodos, saveTodos } from "./localstorage_modules";
 
 const ADD = "ADD" as const;
 const DELETE = "DELETE" as const;
@@ -14,15 +15,17 @@ export type ActionType =
     | ReturnType<typeof addTodo>
     | ReturnType<typeof deleteTodo>;
 
-const reducer = (
-    state = [{ id: Date.now(), text: "초기값" }] as IState[],
-    action: ActionType
-) => {
+const initialState = getTodos() as IState[];
+const reducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case ADD:
-            return [{ text: action.text, id: action.id }, ...state];
+            state = [{ text: action.text, id: action.id }, ...state];
+            saveTodos(state);
+            return state;
         case DELETE:
-            return state.filter((todo) => todo.id !== action.id);
+            state = state.filter((todo) => todo.id !== action.id);
+            saveTodos(state);
+            return state;
         default:
             return state;
     }
