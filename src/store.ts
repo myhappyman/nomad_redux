@@ -2,14 +2,16 @@ import { legacy_createStore as createStore } from "redux";
 
 const ADD = "ADD" as const;
 const DELETE = "DELETE" as const;
-export const addTodo = (text: string) => ({ type: ADD, text, id: Date.now() });
-export const deleteTodo = (id: number) => ({ type: DELETE, id: id });
+const addTodo = (text: string) => ({ type: ADD, text, id: Date.now() });
+const deleteTodo = (id: number) => ({ type: DELETE, id: id });
 
 export interface IState {
     id: number;
     text: string;
 }
-type ActionType = ReturnType<typeof addTodo> | ReturnType<typeof deleteTodo>;
+export type ActionType =
+    | ReturnType<typeof addTodo>
+    | ReturnType<typeof deleteTodo>;
 
 const reducer = (
     state = [{ id: 1, text: "초기값" }] as IState[],
@@ -26,5 +28,10 @@ const reducer = (
 };
 
 const store = createStore(reducer);
+
+export const actionCreators = {
+    addTodo,
+    deleteTodo,
+};
 
 export default store;

@@ -127,3 +127,11 @@ components props가 사라지고 element에 컴포넌트를 넣는다.
 참고로 connect의 내부는 es6 currying문법을 활용해서 저렇게 기괴하게 생긴 모습이 된듯하다.
 
 `mapStateToProps`: 함수이며 두개의 인자를 가진다. 첫번째는 state이고, redux store의 state이다. 2번째는 components의 props이다.
+
+## 3.3 mapDispatchToProps
+
+`connect`의 두번째 인자로 들어가는 값이다.
+`connect(mapStateToProps, mapDispatchToProps)`
+해당 컴포넌트에서 사용할 dispatch에 알맞는 동작 함수를 작성하고, dispatch 전체를 전달하는게 아니라 필요한 행위의 함수만 전달해서 처리한다.
+
+-   2019년 이후로는 connect기법을 잘 사용하지 않는다고한다... `useSelector`, `useDispatch`로 대체됨

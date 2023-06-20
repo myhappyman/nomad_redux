@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { IState } from "../store";
+import { ActionType, IState, actionCreators } from "../store";
 
-function Home({ toDos }: { toDos: IState[] }) {
-    console.log(toDos);
+function Home({ toDos, addTodo }: { toDos: IState[]; addTodo: AddTodoType }) {
     const [text, setText] = useState("");
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        addTodo(text);
         setText("");
-        console.log(text);
     };
     return (
         <div>
@@ -41,10 +40,24 @@ function Home({ toDos }: { toDos: IState[] }) {
  * @param ownProps
  * @returns
  */
-function mapStateToProps(state: IState[], ownProps?: any) {
-    console.log(state);
-    console.log(ownProps);
+function mapStateToProps(state: IState[]) {
     return { toDos: state };
 }
 
-export default connect(mapStateToProps)(Home);
+type DispatchType = (action: ActionType) => typeof action;
+type AddTodoType = (text: string) => ActionType;
+/**
+ * redux에 등록된 store의 dispatch메소드를 현재 컴포넌트의 props로 전달하는 함수이다.
+ * @param dispatch
+ * @param ownProps
+ * @returns
+ */
+function mapDispatchToProps(dispatch: DispatchType, ownProps?: any) {
+    return {
+        addTodo: (text: string) => dispatch(actionCreators.addTodo(text)),
+    };
+}
+
+// const addTodo = (text: string, dispatch: DispatchType) => (dispatch(actionCreators.addTodo(text)));
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
