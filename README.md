@@ -115,3 +115,15 @@ components props가 사라지고 element에 컴포넌트를 넣는다.
 -   `reducer`를 작성한다
 -   `store`에 `reducer`를 등록한다.
 -   `react-redux`의 Provider를 통해 `store`를 호출하고 감싸준다.
+
+## 3.2 mapStateToProps
+
+등록 처리가 끝났으니 redux로부터 state의 값을 가져올 수 있어야한다.
+`connect`: 컴포넌트들에게 `store`를 연결시켜준다. 2개(`state`, `dispatch`)의 인자를 가진다.
+(
+입력(저장, 삭제 등): 저장하는 행위 store.dispatch로 reducer를 동작시키기
+읽기: store에 등록된 state를 가져오는 행위 store.getState()
+)
+참고로 connect의 내부는 es6 currying문법을 활용해서 저렇게 기괴하게 생긴 모습이 된듯하다.
+
+`mapStateToProps`: 함수이며 두개의 인자를 가진다. 첫번째는 state이고, redux store의 state이다. 2번째는 components의 props이다.

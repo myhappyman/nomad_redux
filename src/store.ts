@@ -5,13 +5,16 @@ const DELETE = "DELETE" as const;
 export const addTodo = (text: string) => ({ type: ADD, text, id: Date.now() });
 export const deleteTodo = (id: number) => ({ type: DELETE, id: id });
 
-interface IState {
+export interface IState {
     id: number;
     text: string;
 }
 type ActionType = ReturnType<typeof addTodo> | ReturnType<typeof deleteTodo>;
 
-const reducer = (state = [] as IState[], action: ActionType) => {
+const reducer = (
+    state = [{ id: 1, text: "초기값" }] as IState[],
+    action: ActionType
+) => {
     switch (action.type) {
         case ADD:
             return [{ text: action.text, id: action.id }, ...state];
