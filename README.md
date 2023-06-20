@@ -96,3 +96,22 @@ dispatch에 직접 넣기보단 밖으로 함수를 작성하고 dispatch에서 
 ## 2.3 Delete To Do part Two
 
 splice와 같은 mutate를 일으키는 메소드가 아닌 새로운 배열을 작성해주는 filter를 통해 불변성을 지키고 return 시켜서 삭제 기능을 작성하였다.
+
+## 3.0 setup
+
+`npm install react-redux`
+`npm install react-router-dom`
+
+### react-router-dom v6이상 변화
+
+Routes안에 Route들이 담겨야 한다.
+components props가 사라지고 element에 컴포넌트를 넣는다.
+`<Route path="/" element={<Home />}></Route>`
+
+## 3.1 Connecting the Store
+
+-   `action`을 작성한다. const, 대문자 조합
+-   `actionCreator`를 작성한다
+-   `reducer`를 작성한다
+-   `store`에 `reducer`를 등록한다.
+-   `react-redux`의 Provider를 통해 `store`를 호출하고 감싸준다.
