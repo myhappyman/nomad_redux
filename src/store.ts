@@ -1,5 +1,6 @@
 import { legacy_createStore as createStore } from "redux";
 import { getTodos, saveTodos } from "./localstorage_modules";
+import { useDispatch } from "react-redux";
 
 const ADD = "ADD" as const;
 const DELETE = "DELETE" as const;
@@ -33,6 +34,7 @@ const reducer = (state = initialState, action: ActionType) => {
 
 const store = createStore(reducer);
 
+export type RootState = ReturnType<typeof store.getState>;
 export const actionCreators = {
     addTodo,
     deleteTodo,

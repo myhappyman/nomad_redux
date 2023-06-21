@@ -155,5 +155,11 @@ react-redux강의가 끝났다.
 
 ### Challenge ✅❎
 
-❎ localstorage를 통해 작성된 todos 작업을 적용해보기
+✅ localstorage를 통해 작성된 todos 작업을 적용해보기<br/>
 ❎ 요즘 사용하는 useSelector, useDispatch hook으로 교체해보기
+
+## 4.0 Redux Toolkit
+
+redux사용을 하려면 action, actionCreator, reducer, store... 등등 보일러코드를 작성해야한다.
+(redux를 버리고 recoil만 사용했던 이유도 이부분이 크게 차지했다... 러닝커브도 제법있고 사용법도 recoil에 비해 불편하고...)
+이런 문제를 해결하고자 redux toolkit이라는 개념이 나타났다.

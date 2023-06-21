@@ -1,10 +1,22 @@
-import { useState } from "react";
-import { connect } from "react-redux";
-import { ActionType, DispatchType, IState, actionCreators } from "../store";
+import { useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators, RootState } from "../store";
 import Todos from "../components/Todos";
 
-function Home({ toDos, addTodo }: { toDos: IState[]; addTodo: AddTodoType }) {
+function Home() {
+    const toDos = useSelector((state: RootState) => state);
+    const dispatch = useDispatch();
+    const addTodo = useCallback(
+        (text: string) => dispatch(actionCreators.addTodo(text)),
+        [dispatch]
+    );
     const [text, setText] = useState("");
+    const onChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setText(e.target.value);
+        },
+        [setText]
+    );
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         addTodo(text);
@@ -14,13 +26,7 @@ function Home({ toDos, addTodo }: { toDos: IState[]; addTodo: AddTodoType }) {
         <div>
             <h1>To Do</h1>
             <form onSubmit={onSubmit}>
-                <input
-                    type="text"
-                    value={text}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setText(e.target.value)
-                    }
-                />
+                <input type="text" value={text} onChange={onChange} />
                 <button>추가</button>
             </form>
             <ul>
@@ -41,23 +47,24 @@ function Home({ toDos, addTodo }: { toDos: IState[]; addTodo: AddTodoType }) {
  * @param ownProps
  * @returns
  */
-function mapStateToProps(state: IState[]) {
-    return { toDos: state };
-}
+// function mapStateToProps(state: IState[]) {
+//     return { toDos: state };
+// }
 
-type AddTodoType = (text: string) => ActionType;
+// type AddTodoType = (text: string) => ActionType;
 /**
  * redux에 등록된 store의 dispatch메소드를 현재 컴포넌트의 props로 전달하는 함수이다.
  * @param dispatch
  * @param ownProps
  * @returns
  */
-function mapDispatchToProps(dispatch: DispatchType, ownProps?: any) {
-    return {
-        addTodo: (text: string) => dispatch(actionCreators.addTodo(text)),
-    };
-}
+// function mapDispatchToProps(dispatch: DispatchType, ownProps?: any) {
+//     return {
+//         addTodo: (text: string) => dispatch(actionCreators.addTodo(text)),
+//     };
+// }
 
 // const addTodo = (text: string, dispatch: DispatchType) => (dispatch(actionCreators.addTodo(text)));
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+// export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
