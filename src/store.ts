@@ -1,5 +1,5 @@
 import { legacy_createStore as createStore } from "redux";
-import { createAction } from "@reduxjs/toolkit";
+import { PayloadAction, createAction, createReducer } from "@reduxjs/toolkit";
 import { getTodos, saveTodos } from "./localstorage_modules";
 
 const addTodo = createAction<string>("ADD");
@@ -15,23 +15,35 @@ export type ActionType =
     | ReturnType<typeof deleteTodo>;
 
 const initialState = getTodos() as IState[];
-const reducer = (state = initialState, action: ActionType) => {
-    switch (action.type) {
-        case addTodo.type:
-            state = [
-                { text: action.payload as string, id: Date.now() },
-                ...state,
-            ];
+// const reducer = (state = initialState, action: ActionType) => {
+//     switch (action.type) {
+//         case addTodo.type:
+//             state = [
+//                 { text: action.payload as string, id: Date.now() },
+//                 ...state,
+//             ];
+//             saveTodos(state);
+//             return state;
+//         case deleteTodo.type:
+//             state = state.filter((todo) => todo.id !== action.payload);
+//             saveTodos(state);
+//             return state;
+//         default:
+//             return state;
+//     }
+// };
+const reducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(addTodo, (state, action: PayloadAction<string>) => {
+            state.push({ text: action.payload as string, id: Date.now() });
             saveTodos(state);
-            return state;
-        case deleteTodo.type:
+        })
+        .addCase(deleteTodo, (state, action: PayloadAction<number>) => {
             state = state.filter((todo) => todo.id !== action.payload);
             saveTodos(state);
             return state;
-        default:
-            return state;
-    }
-};
+        });
+});
 
 const store = createStore(reducer);
 

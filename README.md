@@ -199,3 +199,30 @@ switch(action.type){
 
 createAction을 사용하면 2개의 옵션을 가진 Object를 가진다.
 하나는 정의한 type값 텍스트와 payload라는 값이다.
+
+## 4.2 createReducer
+
+기존의 redux구조에서 reducer를 대체하는 메소드이다.
+
+`createReducer(초기값, 리듀서함수)`;
+
+```ts
+//사용예시
+createReducer(initialValue, (Builder) => {
+builder
+        .addCase(addTodo, (state, action: PayloadAction<string>) => {
+            state.push(...)
+
+        })
+        .addCase(deleteTodo, (state, action: PayloadAction<number>) => {
+            return state...;
+        });
+})
+```
+
+리듀서 함수에서는 특이하게도 mutate하게 작성해도 동작이 된다?!!!
+아니 갑자기 더 헷갈린다 항상 mutate하지 못하게 새로운 state를 반환했었는데, 갑자기 된다니... 과거에는 mutate하지 못하게 작성하는게 개발자들에게 힘들고 고된 작업이었고 이런 점을 해결하고자 createReducer내부는 `Immer`로 동작하게 만들어져 있어서 mutate하게 작성하더라도 동작한다.
+내신 mutate하게 작성한 부분은 return을 시키지 않고 새로운 state를 작성하는 경우에만 return시킨다. 위 예시의 addTodo는 return이없고 deleteTodo는 return이 있는 이유이다.
+솔직히 switch case가 빠진 만큼 builder라는 부분과 addCase메소드로 각 동작해야하는 createAction메소드를 넣기에 큰 차이는 없다고 느껴졌는데, typescript와 대부분은 ide에 잘 작동되기에 builder콜백 형태로 작성하는것을 추천한다고 한다.
+
+`Immer`: 현재 상태를 불변 상태로 만들어주는 라이브러리
