@@ -234,3 +234,8 @@ builder
 ### Redux DevTools 설치
 
 redux로 작성된 페이지라면 state에 대한 값들을 누구나 볼 수 있고 그림처럼 그려주기때문에 한눈에 볼 수도 있고 큰 장점이 있다.
+
+## 4.4 createSlice
+
+작성했던 코드 라인을 현저하게 줄여준다.
+reducer뿐만 아니라 actions도 생성해준다.

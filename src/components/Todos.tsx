@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { ActionType, DispatchType, actionCreators } from "../store";
+import { ActionType, DispatchType, remove } from "../store";
 import { Link } from "react-router-dom";
 
 interface ITodo {
@@ -25,7 +25,7 @@ function Todos({ text, id, onBtnClick }: ITodo) {
 function mapDispatchProps(dispatch: DispatchType, ownProps: any) {
     //받아온 props중 id값을 활용하여 메소드를 작성하였다.
     return {
-        onBtnClick: () => dispatch(actionCreators.deleteTodo(ownProps.id)),
+        onBtnClick: () => dispatch(remove(ownProps.id)),
     };
 }
 

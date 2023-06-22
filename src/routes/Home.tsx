@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { actionCreators, ActionType, IState } from "../store";
+import { ActionType, add, IState } from "../store";
 import Todos from "../components/Todos";
 import { connect } from "react-redux";
 
@@ -56,7 +56,7 @@ type IAddDispatchType = (action: ActionType) => typeof action;
  */
 function mapDispatchToProps(dispatch: IAddDispatchType, ownProps?: any) {
     return {
-        addTodo: (text: string) => dispatch(actionCreators.addTodo(text)),
+        addTodo: (text: string) => dispatch(add(text)),
     };
 }
 
