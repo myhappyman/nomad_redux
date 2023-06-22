@@ -156,10 +156,46 @@ react-redux강의가 끝났다.
 ### Challenge ✅❎
 
 ✅ localstorage를 통해 작성된 todos 작업을 적용해보기<br/>
-❎ 요즘 사용하는 useSelector, useDispatch hook으로 교체해보기
+✅ 요즘 사용하는 useSelector, useDispatch hook으로 교체해보기
 
 ## 4.0 Redux Toolkit
 
 redux사용을 하려면 action, actionCreator, reducer, store... 등등 보일러코드를 작성해야한다.
 (redux를 버리고 recoil만 사용했던 이유도 이부분이 크게 차지했다... 러닝커브도 제법있고 사용법도 recoil에 비해 불편하고...)
 이런 문제를 해결하고자 redux toolkit이라는 개념이 나타났다.
+
+## 4.1 createAction
+
+먼저 redux 툴킷 사용을 위해 설치부터 진행한다.
+`npm install @reduxjs/toolkit`
+
+처음으로 사용해 볼 메소드는 `createAction("actioName")`이다.
+기존에 상수로 action명을 정하고 액션함수를 직접 작성했다면 메소드를 통해 사용하는 방법이 있다.
+`createAction`을 사용하면서 액션과 액션함수가 불필요하게 되어 지우게 되니 reducer의 switch부분이 말썽이다. case부분을 createAction의 type값을 사용한다
+
+```js
+//기존
+const ADD = "ADD";
+const DELETE = "DELETE";
+switch(action.type){
+    case ADD:
+        return state...
+    case DELETE:
+        return state...
+}
+```
+
+```js
+//변경 후
+const addTodo = createAction("ADD");
+const deleteTodo = createAction("DELETE");
+switch(action.type){
+    case addTodo.type:
+        return state...
+    case deleteTodo.type:
+        return state...
+}
+```
+
+createAction을 사용하면 2개의 옵션을 가진 Object를 가진다.
+하나는 정의한 type값 텍스트와 payload라는 값이다.

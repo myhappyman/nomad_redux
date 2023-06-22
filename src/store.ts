@@ -1,11 +1,9 @@
 import { legacy_createStore as createStore } from "redux";
+import { createAction } from "@reduxjs/toolkit";
 import { getTodos, saveTodos } from "./localstorage_modules";
-import { useDispatch } from "react-redux";
 
-const ADD = "ADD" as const;
-const DELETE = "DELETE" as const;
-const addTodo = (text: string) => ({ type: ADD, text, id: Date.now() });
-const deleteTodo = (id: number) => ({ type: DELETE, id: id });
+const addTodo = createAction<string>("ADD");
+const deleteTodo = createAction<number>("DELETE");
 
 export interface IState {
     id: number;
@@ -19,12 +17,15 @@ export type ActionType =
 const initialState = getTodos() as IState[];
 const reducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
-        case ADD:
-            state = [{ text: action.text, id: action.id }, ...state];
+        case addTodo.type:
+            state = [
+                { text: action.payload as string, id: Date.now() },
+                ...state,
+            ];
             saveTodos(state);
             return state;
-        case DELETE:
-            state = state.filter((todo) => todo.id !== action.id);
+        case deleteTodo.type:
+            state = state.filter((todo) => todo.id !== action.payload);
             saveTodos(state);
             return state;
         default:
@@ -34,7 +35,7 @@ const reducer = (state = initialState, action: ActionType) => {
 
 const store = createStore(reducer);
 
-export type RootState = ReturnType<typeof store.getState>;
+// export type RootState = ReturnType<typeof store.getState>;
 export const actionCreators = {
     addTodo,
     deleteTodo,
