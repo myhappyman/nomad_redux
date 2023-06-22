@@ -1,5 +1,10 @@
 import { legacy_createStore as createStore } from "redux";
-import { PayloadAction, createAction, createReducer } from "@reduxjs/toolkit";
+import {
+    PayloadAction,
+    configureStore,
+    createAction,
+    createReducer,
+} from "@reduxjs/toolkit";
 import { getTodos, saveTodos } from "./localstorage_modules";
 
 const addTodo = createAction<string>("ADD");
@@ -15,23 +20,6 @@ export type ActionType =
     | ReturnType<typeof deleteTodo>;
 
 const initialState = getTodos() as IState[];
-// const reducer = (state = initialState, action: ActionType) => {
-//     switch (action.type) {
-//         case addTodo.type:
-//             state = [
-//                 { text: action.payload as string, id: Date.now() },
-//                 ...state,
-//             ];
-//             saveTodos(state);
-//             return state;
-//         case deleteTodo.type:
-//             state = state.filter((todo) => todo.id !== action.payload);
-//             saveTodos(state);
-//             return state;
-//         default:
-//             return state;
-//     }
-// };
 const reducer = createReducer(initialState, (builder) => {
     builder
         .addCase(addTodo, (state, action: PayloadAction<string>) => {
@@ -45,7 +33,8 @@ const reducer = createReducer(initialState, (builder) => {
         });
 });
 
-const store = createStore(reducer);
+// const store = createStore(reducer);
+const store = configureStore({ reducer });
 
 // export type RootState = ReturnType<typeof store.getState>;
 export const actionCreators = {

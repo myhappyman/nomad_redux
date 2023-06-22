@@ -226,3 +226,11 @@ builder
 솔직히 switch case가 빠진 만큼 builder라는 부분과 addCase메소드로 각 동작해야하는 createAction메소드를 넣기에 큰 차이는 없다고 느껴졌는데, typescript와 대부분은 ide에 잘 작동되기에 builder콜백 형태로 작성하는것을 추천한다고 한다.
 
 `Immer`: 현재 상태를 불변 상태로 만들어주는 라이브러리
+
+## 4.3 configureStore
+
+좀 더 나은 개발 환경을 위한 store에 설정이나 기본값이 추가 됨.
+
+### Redux DevTools 설치
+
+redux로 작성된 페이지라면 state에 대한 값들을 누구나 볼 수 있고 그림처럼 그려주기때문에 한눈에 볼 수도 있고 큰 장점이 있다.
